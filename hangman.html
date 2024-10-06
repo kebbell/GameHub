@@ -20,9 +20,13 @@
 
   <main>
     <h2>Play Hangman!</h2>
-    <canvas id="hangmanCanvas"></canvas>
+    <canvas id="hangmanCanvas" width="300" height="400"></canvas>
     <div id="gameControls">
-      <!-- Hangman game controls will go here -->
+      <p>Guess a letter:</p>
+      <input type="text" id="letterInput" maxlength="1" autofocus>
+      <button id="submitGuess">Guess</button>
+      <p id="wordDisplay">Word: _ _ _ _ _</p>
+      <p id="wrongGuesses">Wrong Guesses: </p>
     </div>
   </main>
 
