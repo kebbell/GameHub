@@ -6,8 +6,8 @@ document.addEventListener("DOMContentLoaded", function () {
   let birdY = 150;
   const birdX = 50;
   const birdSize = 20;
-  let gravity = 1.5;
-  let lift = -20;
+  let gravity = 0.5; // Slower gravity
+  let lift = -10; // Lower jump height
   let velocity = 0;
 
   let pipes = [];
@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Flap bird when mouse is clicked
   document.addEventListener("click", function () {
-      velocity = lift;
+      velocity = lift; // Apply lower lift value on click
   });
 
   // Start the game loop
