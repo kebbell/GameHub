@@ -109,11 +109,9 @@ document.addEventListener("DOMContentLoaded", function () {
       requestAnimationFrame(gameLoop);
   }
 
-  // Flap bird when space key is pressed
-  document.addEventListener("keydown", function (event) {
-      if (event.code === "Space") {
-          velocity = lift;
-      }
+  // Flap bird when mouse is clicked
+  document.addEventListener("click", function () {
+      velocity = lift;
   });
 
   // Start the game loop
