@@ -6,23 +6,29 @@
     <title>Flappy Bird</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #ADD8E6; /* Light blue background */
+            font-family: Arial, sans-serif;
+            background-color: #ADD8E6;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
         }
 
+        h2 {
+            font-size: 32px;
+            text-align: center;
+        }
+
         canvas {
-            background-color: #70c5ce; /* Game background color */
+            background-color: #70c5ce;
             border: 2px solid #000;
         }
 
-        h2 {
-            text-align: center;
-            font-size: 32px;
+        #score {
+            font-size: 24px;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -30,7 +36,8 @@
     <main>
         <h2>Play Flappy Bird!</h2>
         <canvas id="flappyCanvas" width="320" height="480"></canvas>
+        <div id="score">Score: 0</div>
     </main>
-    <script src="flappybirds.js"></script>
+    <script src="flappybird.js"></script>
 </body>
 </html>

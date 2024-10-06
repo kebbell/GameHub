@@ -3,41 +3,31 @@ document.addEventListener("DOMContentLoaded", function () {
   const ctx = canvas.getContext("2d");
 
   // Game variables
-  const bird = {
-      x: 50,
-      y: 150,
-      width: 20,
-      height: 20,
-      gravity: 1.5,
-      lift: -20,
-      velocity: 0
-  };
+  let birdY = 150;
+  const birdX = 50;
+  const birdSize = 20;
+  let gravity = 1.5;
+  let lift = -20;
+  let velocity = 0;
 
-  const pipes = [];
+  let pipes = [];
   const pipeWidth = 30;
   const pipeGap = 100;
   let frameCount = 0;
   let score = 0;
 
-  // Load the bird image
-  const birdImage = new Image();
-  birdImage.src = 'bird.png'; // Make sure you have an image named 'bird.png' in your project directory
-
-  // Load the pipe images
-  const pipeNorthImage = new Image();
-  pipeNorthImage.src = 'pipeNorth.png'; // Add pipe images to your project
-  const pipeSouthImage = new Image();
-  pipeSouthImage.src = 'pipeSouth.png';
+  const scoreElement = document.getElementById("score");
 
   // Draw bird
   function drawBird() {
-      ctx.drawImage(birdImage, bird.x, bird.y, bird.width, bird.height);
+      ctx.fillStyle = "#FFDD00";  // Yellow bird
+      ctx.fillRect(birdX, birdY, birdSize, birdSize);
   }
 
   // Create pipes
   function createPipes() {
       if (frameCount % 100 === 0) {
-          const pipeY = Math.floor(Math.random() * canvas.height) - pipeGap;
+          const pipeY = Math.floor(Math.random() * (canvas.height - pipeGap));
           pipes.push({
               x: canvas.width,
               y: pipeY
@@ -48,8 +38,9 @@ document.addEventListener("DOMContentLoaded", function () {
   // Draw pipes
   function drawPipes() {
       pipes.forEach(pipe => {
-          ctx.drawImage(pipeNorthImage, pipe.x, pipe.y, pipeWidth, canvas.height);
-          ctx.drawImage(pipeSouthImage, pipe.x, pipe.y + canvas.height + pipeGap, pipeWidth, canvas.height);
+          ctx.fillStyle = "#008000";  // Green pipes
+          ctx.fillRect(pipe.x, 0, pipeWidth, pipe.y);  // Upper pipe
+          ctx.fillRect(pipe.x, pipe.y + pipeGap, pipeWidth, canvas.height - pipe.y - pipeGap);  // Lower pipe
       });
   }
 
@@ -59,29 +50,24 @@ document.addEventListener("DOMContentLoaded", function () {
           pipe.x -= 2;
       });
 
-      // Remove off-screen pipes
-      pipes.forEach((pipe, index) => {
+      // Remove off-screen pipes and increment score
+      pipes = pipes.filter(pipe => {
           if (pipe.x + pipeWidth < 0) {
-              pipes.splice(index, 1);
               score++;
+              scoreElement.textContent = "Score: " + score;
+              return false;
           }
+          return true;
       });
-  }
-
-  // Draw score
-  function drawScore() {
-      ctx.fillStyle = "#000";
-      ctx.font = "24px Arial";
-      ctx.fillText("Score: " + score, 10, 30);
   }
 
   // Handle bird's movement
   function updateBird() {
-      bird.velocity += bird.gravity;
-      bird.y += bird.velocity;
+      velocity += gravity;
+      birdY += velocity;
 
       // Prevent bird from going off the screen
-      if (bird.y + bird.height > canvas.height || bird.y < 0) {
+      if (birdY + birdSize > canvas.height || birdY < 0) {
           resetGame();
       }
   }
@@ -90,9 +76,9 @@ document.addEventListener("DOMContentLoaded", function () {
   function detectCollision() {
       pipes.forEach(pipe => {
           if (
-              bird.x + bird.width > pipe.x &&
-              bird.x < pipe.x + pipeWidth &&
-              (bird.y < pipe.y + canvas.height || bird.y + bird.height > pipe.y + canvas.height + pipeGap)
+              birdX + birdSize > pipe.x &&
+              birdX < pipe.x + pipeWidth &&
+              (birdY < pipe.y || birdY + birdSize > pipe.y + pipeGap)
           ) {
               resetGame();
           }
@@ -101,10 +87,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Reset game function
   function resetGame() {
-      bird.y = 150;
-      bird.velocity = 0;
-      pipes.length = 0;
+      birdY = 150;
+      velocity = 0;
+      pipes = [];
       score = 0;
+      scoreElement.textContent = "Score: 0";
   }
 
   // Main game loop
@@ -117,7 +104,6 @@ document.addEventListener("DOMContentLoaded", function () {
       drawBird();
       updateBird();
       detectCollision();
-      drawScore();
 
       frameCount++;
       requestAnimationFrame(gameLoop);
@@ -126,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Flap bird when space key is pressed
   document.addEventListener("keydown", function (event) {
       if (event.code === "Space") {
-          bird.velocity = bird.lift;
+          velocity = lift;
       }
   });
 
