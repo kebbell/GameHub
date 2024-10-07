@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let birdY = 150;
   const birdX = 50;
   const birdSize = 20;
-  let gravity = 0.5; // Slower gravity
+  let gravity = 0.2; // Slower gravity
   let lift = -5; // Lower jump height
   let velocity = 0;
 

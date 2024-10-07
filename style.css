@@ -7,10 +7,10 @@ body {
 }
 
 header {
-  background-color: #00aaff;
+  background-color: #ff2f00;
   padding: 30px;
   color: white;
-  border-bottom: 3px solid #ff4500;
+  border-bottom: 3px solid #000000;
 }
 
 nav ul {
@@ -27,15 +27,15 @@ nav ul li {
 
 nav ul li a {
   text-decoration: none;
-  color: #fff;
-  background-color: #ff4500;
+  color: #000000;
+  background-color: #f2ff00;
   padding: 10px 20px;
   border-radius: 5px;
   font-size: 18px;
 }
 
 nav ul li a:hover {
-  background-color: #ff8c00;
+  background-color: #00ff00;
 }
 
 h1 {
@@ -46,8 +46,8 @@ h1 {
 
 main {
   padding: 40px;
-  background-color: #ffe4c4;
-  border: 2px dotted #000000;
+  background-color: #f2ff00;
+  border: 2px solid #000000;
 }
 
 footer {
@@ -58,3 +58,8 @@ footer {
   width: 100%;
   bottom: 0;
 }
+
+
+
+
+
